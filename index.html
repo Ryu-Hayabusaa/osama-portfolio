@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Osama Al-Anazi — IT Specialist</title>
+<meta name="description" content="Professional portfolio of Osama Al-Anazi — IT Specialist, Network Technician, Cybersecurity Enthusiast" />
+
+<style>
+  /* ─── DESIGN TOKENS ─────────────────────────────────── */
+  :root {
+    --accent:        #7c5cfc;
+    --accent-2:      #c084fc;
+    --accent-glow:   rgba(124,92,252,.35);
+    --accent-mid:    #9b72fc;
+
+    /* dark theme */
+    --bg:            #0a0a0f;
+    --bg-2:          #0f0f1a;
+    --bg-3:          #15152b;
+    --surface:       #13132380;
+    --surface-2:     #1c1c3280;
+    --border:        rgba(124,92,252,.2);
+    --text:          #e8e8f0;
+    --text-2:        #9090b0;
+    --text-3:        #606080;
+    --card-bg:       #111120;
+    --nav-bg:        rgba(10,10,15,.85);
+    --shadow:        0 0 40px rgba(124,92,252,.12);
+    --hero-dot:      rgba(124,92,252,.15);
+  }
+  [data-theme="light"] {
+    --bg:            #f4f4fd;
+    --bg-2:          #eaeaf8;
+    --bg-3:          #ddddf0;
+    --surface:       #ffffffa0;
+    --surface-2:     #f0f0ffb0;
+    --border:        rgba(124,92,252,.25);
+    --text:          #14143c;
+    --text-2:        #4040708a;
+    --text-2:        #404070;
+    --text-3:        #9090b0;
+    --card-bg:       #ffffffee;
+    --nav-bg:        rgba(244,244,253,.88);
+    --shadow:        0 0 40px rgba(124,92,252,.1);
+    --hero-dot:      rgba(124,92,252,.1);
+  }
+
+  /* ─── RESET ─────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background .4s, color .4s;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  ul { list-style: none; }
+  ::selection { background: var(--accent); color: #fff; }
+
+  /* ─── SCROLLBAR ─────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+  /* ─── UTILITY ───────────────────────────────────────── */
+  .container { width: 90%; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: .72rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700; margin-bottom: .6rem;
+  }
+  .section-title {
+    font-size: clamp(1.7rem,4vw,2.6rem); font-weight: 800;
+    color: var(--text); line-height: 1.2;
+  }
+  .section-title span { color: var(--accent); }
+  section { padding: 6rem 0; }
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── NAV ────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: var(--nav-bg); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: .9rem 0; transition: background .4s;
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 90%; max-width: 1100px; margin: 0 auto;
+  }
+  .nav-logo {
+    font-size: 1.05rem; font-weight: 800; letter-spacing: .03em;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links {
+    display: flex; gap: 2rem; align-items: center;
+  }
+  .nav-links a {
+    font-size: .85rem; font-weight: 500; color: var(--text-2);
+    transition: color .3s; letter-spacing: .03em;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .theme-toggle {
+    width: 42px; height: 24px; background: var(--surface-2);
+    border: 1px solid var(--border); border-radius: 12px;
+    cursor: pointer; position: relative; transition: background .3s;
+    outline: none; flex-shrink: 0;
+  }
+  .theme-toggle::after {
+    content: ''; position: absolute; top: 2px; left: 3px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--accent); transition: transform .3s ease;
+  }
+  [data-theme="light"] .theme-toggle::after { transform: translateX(18px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all .3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ─── HERO ───────────────────────────────────────────── */
+  #hero {
+    min-height: 100svh; display: flex; align-items: center;
+    position: relative; overflow: hidden; padding: 8rem 0 4rem;
+  }
+  #hero-canvas {
+    position: absolute; inset: 0; z-index: 0; opacity: .7;
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(var(--hero-dot) 1px, transparent 1px),
+      linear-gradient(90deg, var(--hero-dot) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 999px; padding: .35rem 1rem;
+    font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent-2); font-weight: 600; margin-bottom: 1.6rem;
+    backdrop-filter: blur(10px);
+  }
+  .hero-badge span { width: 7px; height: 7px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)} 50%{box-shadow:0 0 0 6px rgba(74,222,128,0)} }
+  .hero-name {
+    font-size: clamp(2.8rem,8vw,5.5rem); font-weight: 900;
+    line-height: 1.05; letter-spacing: -.02em;
+    margin-bottom: .5rem;
+  }
+  .hero-name .line1 {
+    background: linear-gradient(135deg, #fff 0%, var(--text-2) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  [data-theme="light"] .hero-name .line1 {
+    background: linear-gradient(135deg, #0a0a2a 0%, #404070 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-name .line2 {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-title {
+    font-size: clamp(1rem,2.5vw,1.25rem); color: var(--text-2);
+    font-weight: 500; margin-bottom: 1.4rem;
+    display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
+  }
+  .hero-title .dot { width: 4px; height: 4px; background: var(--accent); border-radius: 50%; }
+  .hero-summary {
+    max-width: 580px; color: var(--text-2); font-size: 1rem;
+    line-height: 1.75; margin-bottom: 2.2rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .8rem 1.8rem; border-radius: 8px;
+    font-size: .9rem; font-weight: 600; cursor: pointer;
+    transition: all .3s; border: none;
+    text-decoration: none; letter-spacing: .02em;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff; box-shadow: 0 4px 20px var(--accent-glow);
+  }
+  .btn-primary:hover { box-shadow: 0 6px 30px var(--accent-glow); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-2); backdrop-filter: blur(10px);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem; flex-wrap: wrap;
+  }
+  .stat { }
+  .stat-num {
+    font-size: 2rem; font-weight: 900; color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label { font-size: .75rem; color: var(--text-2); text-transform: uppercase; letter-spacing: .1em; margin-top: .2rem; }
+
+  /* ─── ABOUT ──────────────────────────────────────────── */
+  #about { background: var(--bg-2); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  .about-visual {
+    display: flex; justify-content: center; align-items: center;
+  }
+  .avatar-ring {
+    width: 260px; height: 260px; border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--accent), var(--accent-2), var(--accent));
+    padding: 3px; position: relative; animation: spin 8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .avatar-inner {
+    width: 100%; height: 100%; border-radius: 50%;
+    background: var(--bg-2); display: flex; align-items: center; justify-content: center;
+    font-size: 5rem; animation: spin 8s linear infinite reverse;
+    flex-direction: column; gap: .4rem;
+  }
+  .avatar-initials {
+    font-size: 3.5rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: -.04em;
+  }
+  .about-text p {
+    color: var(--text-2); line-height: 1.85; margin-bottom: 1.2rem;
+  }
+  .about-tags { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.5rem; }
+  .tag {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--accent-2); font-size: .78rem; font-weight: 600;
+    padding: .3rem .85rem; border-radius: 999px; letter-spacing: .04em;
+    backdrop-filter: blur(6px);
+  }
+
+  /* ─── SKILLS ─────────────────────────────────────────── */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .skill-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    transition: border-color .3s, box-shadow .3s; backdrop-filter: blur(6px);
+  }
+  .skill-card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+  .skill-card-title {
+    font-size: .8rem; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--accent); font-weight: 700; margin-bottom: 1rem;
+  }
+  .skill-item { margin-bottom: .9rem; }
+  .skill-info { display: flex; justify-content: space-between; font-size: .85rem; margin-bottom: .35rem; }
+  .skill-info span:first-child { color: var(--text); font-weight: 500; }
+  .skill-info span:last-child { color: var(--accent); font-weight: 700; }
+  .skill-bar {
+    height: 5px; background: var(--bg-3); border-radius: 3px; overflow: hidden;
+  }
+  .skill-fill {
+    height: 100%; border-radius: 3px; width: 0;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transition: width 1.2s cubic-bezier(.4,0,.2,1) .2s;
+  }
+
+  /* ─── EXPERIENCE ─────────────────────────────────────── */
+  #experience { background: var(--bg-2); }
+  .timeline { position: relative; margin-top: 3rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 20px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+  .timeline-item {
+    display: flex; gap: 2rem; margin-bottom: 2.5rem; position: relative;
+  }
+  .timeline-dot {
+    flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; z-index: 1; box-shadow: 0 0 20px var(--accent-glow);
+  }
+  .timeline-body {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.4rem 1.6rem; flex: 1;
+    transition: border-color .3s;
+  }
+  .timeline-body:hover { border-color: var(--accent); }
+  .timeline-date {
+    font-size: .75rem; text-transform: uppercase; letter-spacing: .1em;
+    color: var(--accent); font-weight: 700; margin-bottom: .4rem;
+  }
+  .timeline-role {
+    font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: .25rem;
+  }
+  .timeline-company { font-size: .9rem; color: var(--text-2); margin-bottom: .6rem; }
+  .timeline-desc { font-size: .88rem; color: var(--text-2); line-height: 1.7; }
+
+  /* ─── INITIATIVES ────────────────────────────────────── */
+  .initiatives-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .initiative-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.8rem;
+    transition: border-color .3s, transform .3s;
+    position: relative; overflow: hidden;
+  }
+  .initiative-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  }
+  .initiative-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .initiative-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .initiative-company { font-size: .72rem; text-transform: uppercase; letter-spacing: .1em; color: var(--accent); font-weight: 700; margin-bottom: .5rem; }
+  .initiative-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: .7rem; }
+  .initiative-desc { font-size: .88rem; color: var(--text-2); line-height: 1.7; }
+
+  /* ─── CERTIFICATIONS ─────────────────────────────────── */
+  #certifications { background: var(--bg-2); }
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .cert-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: border-color .3s, transform .3s;
+  }
+  .cert-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .cert-icon {
+    width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+  }
+  .cert-body .cert-title { font-size: .9rem; font-weight: 700; color: var(--text); margin-bottom: .25rem; }
+  .cert-body .cert-meta { font-size: .78rem; color: var(--accent); font-weight: 600; }
+  .cert-body .cert-org { font-size: .78rem; color: var(--text-2); margin-top: .15rem; }
+
+  /* ─── RECOMMENDATION ─────────────────────────────────── */
+  #recommendation {
+    background: linear-gradient(135deg, var(--bg) 0%, var(--bg-3) 100%);
+    position: relative; overflow: hidden;
+  }
+  #recommendation::before {
+    content: '\201C'; position: absolute; top: -1rem; left: 3%;
+    font-size: 18rem; font-family: Georgia, serif; color: var(--accent);
+    opacity: .06; line-height: 1; pointer-events: none;
+  }
+  .rec-card {
+    max-width: 800px; margin: 3rem auto 0;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 20px; padding: 3rem; position: relative;
+    box-shadow: 0 0 60px rgba(124,92,252,.15);
+  }
+  .rec-stars { color: #fbbf24; font-size: 1.1rem; letter-spacing: .1em; margin-bottom: 1.5rem; }
+  .rec-quote {
+    font-size: 1.12rem; line-height: 1.9; color: var(--text);
+    font-style: italic; margin-bottom: 2rem; position: relative;
+  }
+  .rec-divider {
+    height: 1px; background: linear-gradient(90deg, var(--accent), transparent);
+    margin-bottom: 1.5rem;
+  }
+  .rec-person { display: flex; align-items: center; gap: 1rem; }
+  .rec-avatar {
+    width: 54px; height: 54px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem; font-weight: 800; color: #fff; flex-shrink: 0;
+  }
+  .rec-name { font-weight: 800; font-size: 1rem; color: var(--text); }
+  .rec-title-label { font-size: .82rem; color: var(--accent); font-weight: 600; margin-top: .15rem; }
+  .rec-verified {
+    margin-left: auto; display: flex; align-items: center; gap: .4rem;
+    font-size: .78rem; color: #4ade80; font-weight: 600;
+  }
+
+  /* ─── EDUCATION ──────────────────────────────────────── */
+  .edu-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem 2.5rem;
+    display: flex; align-items: center; gap: 2rem;
+    margin-top: 2.5rem; transition: border-color .3s;
+    flex-wrap: wrap;
+  }
+  .edu-card:hover { border-color: var(--accent); }
+  .edu-icon {
+    width: 70px; height: 70px; border-radius: 16px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;
+  }
+  .edu-degree { font-size: 1.1rem; font-weight: 800; color: var(--text); margin-bottom: .3rem; }
+  .edu-school { font-size: .9rem; color: var(--accent); font-weight: 600; margin-bottom: .25rem; }
+  .edu-date { font-size: .82rem; color: var(--text-2); }
+
+  /* ─── CONTACT ────────────────────────────────────────── */
+  #contact { background: var(--bg-2); }
+  .contact-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 1.2rem; margin-top: 3rem; }
+  .contact-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.6rem; text-align: center;
+    transition: border-color .3s, transform .3s;
+    cursor: pointer;
+  }
+  .contact-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow); }
+  .contact-card-icon { font-size: 1.8rem; margin-bottom: .8rem; }
+  .contact-card-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .12em; color: var(--accent); font-weight: 700; margin-bottom: .4rem; }
+  .contact-card-value { font-size: .9rem; color: var(--text); font-weight: 500; word-break: break-all; }
+
+  /* ─── FOOTER ─────────────────────────────────────────── */
+  footer {
+    text-align: center; padding: 2.5rem; border-top: 1px solid var(--border);
+    color: var(--text-3); font-size: .82rem;
+  }
+  footer span { color: var(--accent); }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0; background: var(--nav-bg); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; z-index: 999; }
+    .nav-links.open { display: flex; }
+    .nav-links a { font-size: 1.2rem; }
+    .hamburger { display: flex; }
+    .about-grid { grid-template-columns: 1fr; text-align: center; }
+    .avatar-ring { width: 180px; height: 180px; }
+    .rec-card { padding: 2rem 1.5rem; }
+    .rec-verified { display: none; }
+    .edu-card { flex-direction: column; text-align: center; }
+    .timeline::before { left: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">OA.</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#recommendation">Recommendation</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────────── -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-grid"></div>
+  <div class="container hero-content">
+    <div class="hero-badge"><span></span> Available for New Opportunities</div>
+    <h1 class="hero-name">
+      <div class="line1">Osama</div>
+      <div class="line2">Al-Anazi</div>
+    </h1>
+    <p class="hero-title">
+      IT Specialist
+      <span class="dot"></span>
+      Network Technician
+      <span class="dot"></span>
+      Cybersecurity Advocate
+    </p>
+    <p class="hero-summary">
+      Building secure, efficient IT environments through hands-on technical support, 
+      network infrastructure, and proactive governance initiatives. Passionate about 
+      turning technology challenges into seamless solutions.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Get In Touch
+      </a>
+      <a href="#experience" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        View Experience
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Roles Held</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Key Initiatives</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Languages</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ──────────────────────────────────────── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="avatar-ring">
+          <div class="avatar-inner">
+            <div class="avatar-initials">OA</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <p class="section-label">About Me</p>
+        <h2 class="section-title" style="margin-bottom:1.5rem;">Driven by <span>precision</span>, powered by passion</h2>
+        <p>
+          I'm an IT Specialist with a strong foundation in technical support, network operations, 
+          and cybersecurity awareness. I thrive in environments where technology meets people — 
+          whether that's resolving complex network issues or building systems that empower entire teams.
+        </p>
+        <p>
+          My journey spans multiple roles, from COOP trainee to IT Support Technician, always 
+          with one constant: a commitment to elevating the quality and security of IT operations. 
+          I believe great IT isn't just about fixing problems — it's about preventing them.
+        </p>
+        <div class="about-tags">
+          <span class="tag">Problem Solver</span>
+          <span class="tag">Detail-Oriented</span>
+          <span class="tag">Team Player</span>
+          <span class="tag">Self-Learner</span>
+          <span class="tag">Adaptable</span>
+          <span class="tag">Arabic & English</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SKILLS ──────────────────────────────────────── -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label reveal">Technical Competencies</p>
+    <h2 class="section-title reveal">Skills &amp; <span>Expertise</span></h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <p class="skill-card-title">🔧 Support &amp; Operations</p>
+        <div class="skill-item">
+          <div class="skill-info"><span>IT Support &amp; Troubleshooting</span><span>95%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="95"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Windows OS Support &amp; Deployment</span><span>90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Endpoint &amp; Device Management</span><span>88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="88"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Printer &amp; Peripheral Support</span><span>92%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="92"></div></div>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <p class="skill-card-title">🌐 Network &amp; Infrastructure</p>
+        <div class="skill-item">
+          <div class="skill-info"><span>Network Troubleshooting (DNS/DHCP)</span><span>88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="88"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Basic Network Infrastructure</span><span>82%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="82"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Active Directory Administration</span><span>85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>IP Configuration &amp; Subnetting</span><span>80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="80"></div></div>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <p class="skill-card-title">☁️ Microsoft &amp; Admin</p>
+        <div class="skill-item">
+          <div class="skill-info"><span>Microsoft 365 Administration</span><span>87%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="87"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Email &amp; Exchange Administration</span><span>84%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="84"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>IT Asset Management</span><span>88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="88"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Incident &amp; Ticket Management</span><span>90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="90"></div></div>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <p class="skill-card-title">🛡️ Soft Skills</p>
+        <div class="skill-item">
+          <div class="skill-info"><span>Problem-Solving &amp; Incident Handling</span><span>93%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="93"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Team Collaboration</span><span>95%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="95"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Communication with End Users</span><span>92%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="92"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-info"><span>Time Management &amp; Prioritization</span><span>88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-w="88"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EXPERIENCE ──────────────────────────────────── -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label reveal">Career Journey</p>
+    <h2 class="section-title reveal">Work <span>Experience</span></h2>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot">💼</div>
+        <div class="timeline-body">
+          <p class="timeline-date">December 2025 — Present</p>
+          <p class="timeline-role">IT Support Technician</p>
+          <p class="timeline-company">Mufeed Company</p>
+          <p class="timeline-desc">Providing day-to-day technical support, managing IT assets, and leading proactive cybersecurity initiatives including phishing awareness programs and platform governance policies.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot">🖥️</div>
+        <div class="timeline-body">
+          <p class="timeline-date">October 2025 — December 2025</p>
+          <p class="timeline-role">IT Specialist</p>
+          <p class="timeline-company">Akel Company</p>
+          <p class="timeline-desc">Elevated to IT Specialist role handling advanced system administration, software deployments, and user support across organizational infrastructure.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot">🌐</div>
+        <div class="timeline-body">
+          <p class="timeline-date">April 2025 — October 2025</p>
+          <p class="timeline-role">IT Network Technician</p>
+          <p class="timeline-company">Akel Company</p>
+          <p class="timeline-desc">Managed network infrastructure, resolved DNS/DHCP issues, administered Active Directory, and implemented the company's internal IT ticketing system to streamline support operations.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot">🎓</div>
+        <div class="timeline-body">
+          <p class="timeline-date">December 2024 — April 2025</p>
+          <p class="timeline-role">COOP IT Network Technician</p>
+          <p class="timeline-company">Akel Company</p>
+          <p class="timeline-desc">Completed cooperative training in IT network operations, gaining hands-on experience in network configuration, device setup, and end-user support as part of the TVTC COOP program.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INITIATIVES ──────────────────────────────────── -->
+<section id="initiatives">
+  <div class="container">
+    <p class="section-label reveal">Leadership &amp; Impact</p>
+    <h2 class="section-title reveal">Key <span>Initiatives</span></h2>
+    <div class="initiatives-grid">
+      <div class="initiative-card reveal">
+        <div class="initiative-icon">🎣</div>
+        <p class="initiative-company">Mufeed Company</p>
+        <p class="initiative-title">Phishing Awareness Program</p>
+        <p class="initiative-desc">Designed and conducted phishing simulations alongside cybersecurity awareness training sessions to significantly improve employee security awareness and response behavior across the organization.</p>
+      </div>
+      <div class="initiative-card reveal">
+        <div class="initiative-icon">🏛️</div>
+        <p class="initiative-company">Mufeed Company</p>
+        <p class="initiative-title">Platform Governance Policy</p>
+        <p class="initiative-desc">Established a comprehensive governance policy requiring IT approval for all internal platforms, ensuring data security, regulatory compliance, and controlled technology adoption across departments.</p>
+      </div>
+      <div class="initiative-card reveal">
+        <div class="initiative-icon">🎫</div>
+        <p class="initiative-company">Akel Company</p>
+        <p class="initiative-title">IT Ticketing System</p>
+        <p class="initiative-desc">Implemented an internal IT ticketing system from the ground up, enabling structured management and tracking of all support requests — dramatically improving service response times and operational efficiency.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CERTIFICATIONS ──────────────────────────────── -->
+<section id="certifications">
+  <div class="container">
+    <p class="section-label reveal">Credentials</p>
+    <h2 class="section-title reveal">Training &amp; <span>Certifications</span></h2>
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-icon">🏆</div>
+        <div class="cert-body">
+          <p class="cert-title">Professional Accreditation — Network Technician</p>
+          <p class="cert-meta">Saudi Council of Engineers</p>
+          <p class="cert-org">Official Professional Registration</p>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">🌐</div>
+        <div class="cert-body">
+          <p class="cert-title">Network Addressing &amp; Basic Troubleshooting</p>
+          <p class="cert-meta">January 2025 · 30 Hours</p>
+          <p class="cert-org">Technical Training Program</p>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">🔌</div>
+        <div class="cert-body">
+          <p class="cert-title">Networking Devices &amp; Initial Configuration</p>
+          <p class="cert-meta">June 2024 · 30 Hours</p>
+          <p class="cert-org">Technical Training Program</p>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">🛡️</div>
+        <div class="cert-body">
+          <p class="cert-title">Introduction to Cybersecurity</p>
+          <p class="cert-meta">December 2023 · 15 Hours</p>
+          <p class="cert-org">Cisco Networking Academy</p>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon">📡</div>
+        <div class="cert-body">
+          <p class="cert-title">Introduction to IoT</p>
+          <p class="cert-meta">December 2023 · 20 Hours</p>
+          <p class="cert-org">Cisco Networking Academy</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RECOMMENDATION ──────────────────────────────── -->
+<section id="recommendation">
+  <div class="container" style="text-align:center;">
+    <p class="section-label reveal">Testimonial</p>
+    <h2 class="section-title reveal">Professional <span>Recommendation</span></h2>
+    <div class="rec-card reveal">
+      <div class="rec-stars">★ ★ ★ ★ ★</div>
+      <blockquote class="rec-quote">
+        "I had the pleasure of working with Osama and found him to be a dedicated, reliable, and professional individual. He consistently demonstrated a strong work ethic, adaptability, and a positive attitude toward challenges. Osama is always willing to support his colleagues and contribute to the success of the team. I highly recommend him and wish him continued success in his career."
+      </blockquote>
+      <div class="rec-divider"></div>
+      <div class="rec-person">
+        <div class="rec-avatar">AA</div>
+        <div>
+          <p class="rec-name">Ali Alser</p>
+          <p class="rec-title-label">Direct Manager</p>
+        </div>
+        <div class="rec-verified">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Verified Recommendation
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EDUCATION ──────────────────────────────────── -->
+<section id="education">
+  <div class="container">
+    <p class="section-label reveal">Academic Background</p>
+    <h2 class="section-title reveal">Education</h2>
+    <div class="edu-card reveal">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <p class="edu-degree">Diploma in Computer Network Technology</p>
+        <p class="edu-school">Technical and Vocational Training Corporation<br>College of Communications and Information Technology</p>
+        <p class="edu-date">Graduated: June 2025</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ──────────────────────────────────────── -->
+<section id="contact">
+  <div class="container" style="text-align:center;">
+    <p class="section-label reveal">Let's Connect</p>
+    <h2 class="section-title reveal" style="margin-bottom:.8rem;">Get In <span>Touch</span></h2>
+    <p class="reveal" style="color:var(--text-2);max-width:480px;margin:0 auto 0;line-height:1.7;">
+      Open to new opportunities, collaborations, and conversations. Reach out through any of the channels below.
+    </p>
+    <div class="contact-grid">
+      <a href="tel:+966595893830" class="contact-card reveal">
+        <div class="contact-card-icon">📱</div>
+        <p class="contact-card-label">Phone</p>
+        <p class="contact-card-value">0595893830</p>
+      </a>
+      <a href="mailto:osama.kh.2004.l@gmail.com" class="contact-card reveal">
+        <div class="contact-card-icon">📧</div>
+        <p class="contact-card-label">Email</p>
+        <p class="contact-card-value">osama.kh.2004.l@gmail.com</p>
+      </a>
+      <a href="https://linkedin.com" target="_blank" rel="noopener" class="contact-card reveal">
+        <div class="contact-card-icon">💼</div>
+        <p class="contact-card-label">LinkedIn</p>
+        <p class="contact-card-value">View Profile →</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────── -->
+<footer>
+  <p>Crafted with precision by <span>Osama Al-Anazi</span> · IT Specialist · © 2025</p>
+</footer>
+
+<script>
+// ─── THEME TOGGLE ─────────────────────────────────────
+const root = document.documentElement;
+const toggle = document.getElementById('themeToggle');
+toggle.addEventListener('click', () => {
+  root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+});
+
+// ─── HAMBURGER ─────────────────────────────────────────
+const hamburger = document.getElementById('hamburger');
+const navLinks  = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hamburger.classList.remove('open');
+  navLinks.classList.remove('open');
+}));
+
+// ─── HERO CANVAS PARTICLES ─────────────────────────────
+(function(){
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [], mouse = {x:-999,y:-999};
+
+  function resize(){
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  canvas.parentElement.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+  });
+
+  for(let i=0;i<90;i++) particles.push({
+    x: Math.random()*9999, y: Math.random()*9999,
+    r: Math.random()*2+.5,
+    vx: (Math.random()-.5)*.4, vy: (Math.random()-.5)*.4,
+    alpha: Math.random()*.6+.2
+  });
+
+  function draw(){
+    if(!W||!H) return;
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=W; if(p.x>W)p.x=0;
+      if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+      const dx=p.x-mouse.x, dy=p.y-mouse.y, dist=Math.sqrt(dx*dx+dy*dy);
+      const glow = dist<120 ? 1-(dist/120) : 0;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r+(glow*2),0,Math.PI*2);
+      ctx.fillStyle = `rgba(124,92,252,${p.alpha+glow*.5})`;
+      ctx.fill();
+    });
+    // draw connections
+    particles.forEach((a,i)=>{
+      particles.slice(i+1).forEach(b=>{
+        const dx=a.x-b.x, dy=a.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
+        if(d<120){
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+          ctx.strokeStyle=`rgba(124,92,252,${.15*(1-d/120)})`;
+          ctx.lineWidth=.8;
+          ctx.stroke();
+        }
+      });
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ─── SCROLL REVEAL ─────────────────────────────────────
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if(e.isIntersecting){
+      setTimeout(()=>{ e.target.classList.add('visible'); }, i*80);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => observer.observe(el));
+
+// ─── SKILL BAR ANIMATION ───────────────────────────────
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.skill-fill').forEach(bar => {
+        bar.style.width = bar.dataset.w + '%';
+      });
+      barObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.skill-card').forEach(c => barObserver.observe(c));
+
+// ─── NAV ACTIVE STATE ──────────────────────────────────
+const sections = document.querySelectorAll('section[id]');
+const navAs = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if(window.scrollY >= s.offsetTop - 120) current = s.id; });
+  navAs.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#'+current ? 'var(--accent)' : '';
+  });
+}, {passive:true});
+</script>
+</body>
+</html>
